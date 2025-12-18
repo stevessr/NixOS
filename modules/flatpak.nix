@@ -2,10 +2,8 @@
 
 {
   environment.systemPackages = with pkgs; [
-    matugen
-    wl-clipboard
-    cliphist
-    dgop 
-    
+    flatpak
+    obs-studio
+    bilibili
   ];
 }

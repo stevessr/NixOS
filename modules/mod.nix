@@ -3,11 +3,13 @@
 {
   imports = [
     ./app.nix
+    ./autoclean.nix
     ./btrfs.nix
     ./chrom.nix
     ./coding.nix
     ./dms.nix
     ./fcitx5.nix
+    ./flatpak.nix
     ./font.nix
     ./homo.nix
     ./js.nix
@@ -19,6 +21,7 @@
     ./sh.nix
     ./starship.nix
     ./user.nix
+    ./vibe.nix
     ./wayvnc.nix
     ./zerotier.nix
   ];

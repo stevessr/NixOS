@@ -8,17 +8,6 @@
 
   # 图形界面权限管理
   security.polkit.enable = true;
-  
-# 登录管理器 (SDDM)
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-    theme = "breeze";
-    autoLogin = {
-      enable = true;
-      user = "stevessr";
-    };
-  };
 
   # XDG Portals (屏幕共享、文件选择)
   xdg.portal = {
