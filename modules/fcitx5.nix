@@ -17,14 +17,14 @@
       waylandFrontend = true;
       
       addons = with pkgs; [
-        fcitx5-chinese-addons   # 拼音、五笔等基础插件
+        qt6Packages.fcitx5-chinese-addons   # 拼音、五笔等基础插件
         fcitx5-rime             # Rime 输入法引擎
         fcitx5-lua              # Lua 脚本支持
         fcitx5-skk              # SKK 支持
         kdePackages.fcitx5-qt   # 关键：确保 Plasma 6 下的 Qt 应用支持
         fcitx5-gtk              # 确保 GTK 应用支持
         rime-data               # Rime 基础数据
-        fcitx5-configtool       # 图形化配置界面
+        qt6Packages.fcitx5-configtool       # 图形化配置界面
         # 主题
         fcitx5-nord
         fcitx5-material-color

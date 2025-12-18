@@ -28,7 +28,8 @@
   # 桌面环境配置 (Plasma 6 属于 desktopManager)
   services.desktopManager.plasma6.enable = true;
   
-  environment.systemPackages = with pkgs; [ # <--- 修复：这里加了分号 ;
+  environment.systemPackages = with pkgs; [
     kdePackages.qtvirtualkeyboard
+    libsForQt5.qtvirtualkeyboard    # Qt5
   ];
 }
