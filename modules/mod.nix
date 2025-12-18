@@ -13,6 +13,7 @@
     ./font.nix
     ./homo.nix
     ./js.nix
+    ./kde6.nix
     ./media.nix
     ./niri.nix
     ./nvidia.nix

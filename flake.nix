@@ -3,13 +3,7 @@
 
   inputs = {
     # 你选择了 unstable 分支
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    
-    # 你添加的 DMS
-    dms = {
-      url = "github:AvengeMedia/DankMaterialShell/stable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";    
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
