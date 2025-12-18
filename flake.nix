@@ -3,7 +3,20 @@
 
   inputs = {
     # 你选择了 unstable 分支
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";    
+    nixpkgs = {
+      url = "github:NixOS/nixpkgs/nixos-unstable";
+    };    
+
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
