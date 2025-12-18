@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   services.xserver.enable = true;
@@ -7,27 +7,22 @@
     sddm = {
       enable = true;
       wayland.enable = true;
-      # 1. 强制使用 Qt6 版本的 SDDM
-      package = pkgs.kdePackages.sddm; 
-      
-      # 2. 关键修复：不要手动设置 systemd 变量
-      # 将所有需要的组件放入 extraPackages，NixOS 会自动处理路径合并
+      package = pkgs.kdePackages.sddm;
+
       extraPackages = with pkgs.kdePackages; [
         qtvirtualkeyboard
-        plasma-workspace # 必须：Breeze 主题的实际资源在这个包里
+        # --- 关键包 ---
+        plasma-desktop     # Breeze 主题实际在这个包里
+        plasma5support     # Plasma 6 主题兼容层，缺少它会导致加载失败回退
         qtmultimedia
         qtsvg
+        # --------------
       ];
 
+      # 使用这个属性，NixOS 模块会自动处理路径
       theme = "breeze";
-      
-      settings = {
-        General = {
-          # 指定输入法模块
-          InputMethod = "qtvirtualkeyboard";
-        };
-      };
     };
+
     defaultSession = "niri";
     autoLogin = {
       enable = false;
@@ -35,11 +30,28 @@
     };
   };
 
-  # --- 彻底删除之前添加的 systemd.services.display-manager.environment 整个代码块 ---
-  # 不要使用环境变量手动覆盖，否则会破坏主题！
-
-  # 系统全局包保持不变
-  environment.systemPackages = with pkgs; [
-    kdePackages.qtvirtualkeyboard
+  # 建议在系统全局也加上这几个，确保环境路径正确
+  environment.systemPackages = with pkgs.kdePackages; [
+    qtvirtualkeyboard
+    plasma-desktop
   ];
+
+  # Enable Qt Virtual Keyboard for SDDM by setting environment variables
+  environment.variables = {
+    QT_IM_MODULE = lib.mkForce "qtvirtualkeyboard";
+    QT_VIRTUAL_KEYBOARD_SHOW_ON_STARTUP = "1";
+    QT_QUICK_CONTROLS_STYLE = "org.kde.breeze";
+  };
+
+  # Also create a dedicated SDDM configuration file for virtual keyboard support
+  environment.etc."sddm.conf.d/virtualkeyboard.conf".text = ''
+    [X11]
+    InputMethod=qtvirtualkeyboard
+
+    [Wayland]
+    InputMethod=qtvirtualkeyboard
+
+    [Theme]
+    EnableVirtualKeyboard=true
+  '';
 }
