@@ -7,5 +7,6 @@
   codex
   qwen-code
   copilot-cli
+  gemini-cli
 ];
 }
