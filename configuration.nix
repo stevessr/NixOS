@@ -76,7 +76,17 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  
+  swapDevices = [ 
+    {
+      device = "/var/lib/swapfile";
+      size = 8 * 1024; # 单位是 MB，这里是 8GB
+    } 
+  ];
 
+  zramSwap.enable = true;
+  zramSwap.memoryPercent = 50; # 占用最大内存的百分比
+  
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
