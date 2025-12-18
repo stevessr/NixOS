@@ -1,9 +1,10 @@
 { config, pkgs, ... }:
 
 {
-# --- 图形界面 (KDE Plasma 6 示例，适合你的高刷屏) ---
+  # --- 图形界面 (KDE Plasma 6 示例) ---
   services.xserver.enable = true;
-  # 登录管理器 (SDDM)
+
+  # 登录管理器配置
   services.displayManager = {
     sddm = {
       enable = true;
@@ -11,24 +12,23 @@
       theme = "breeze";
       settings = {
         General = {
-        InputMethod = "qtvirtualkeyboard";
+          InputMethod = "qtvirtualkeyboard";
         };
       };
-    };
-    defaultSession = "niri"; # <--- 添加这一行，强制默认进入 niri
+    }; # <--- 修复：这里必须关闭 sddm 代码块
+
+    defaultSession = "niri"; # <--- 现在它正确地属于 displayManager
+    
     autoLogin = {
-        enable = false;
-        user = "stevessr";
-    };
-    plasma6 = {
-      enable = true;
+      enable = false;
+      user = "stevessr";
     };
   };
-  
-  environment.systemPackages = with pkgs [
-    kdePackages.qtvirtualkeyboard  # 针对 Qt6 (Plasma 6 环境)
-    # 如果你的系统较老，或者 SDDM 还在用 Qt5，则使用:
-    # libsForQt5.qtvirtualkeyboard 
-  ];
 
+  # 桌面环境配置 (Plasma 6 属于 desktopManager)
+  services.desktopManager.plasma6.enable = true;
+  
+  environment.systemPackages = with pkgs; [ # <--- 修复：这里加了分号 ;
+    kdePackages.qtvirtualkeyboard
+  ];
 }
