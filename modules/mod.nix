@@ -15,6 +15,7 @@
     ./js.nix
     ./kde6.nix
     ./media.nix
+    ./network.nix
     ./niri.nix
     ./nvidia.nix
     ./recommand.nix
