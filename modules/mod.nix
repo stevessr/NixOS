@@ -18,6 +18,7 @@
     ./network.nix
     ./niri.nix
     ./nvidia.nix
+    ./pi.nix
     ./recommand.nix
     ./sddm.nix
     ./sh.nix
